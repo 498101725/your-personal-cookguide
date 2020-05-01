@@ -1,5 +1,30 @@
 <template>
   <div>
+    <div>
+      <input
+        v-model="cuisineName"
+        placeholder="find your Cuisine here..."
+        type="text"
+      />
+
+      <button @click="findCuisineName()">
+        <i class="fa fa-plane extraClass"></i>
+      </button>
+    </div>
+
+    <div>
+      <input
+        v-model="keyWords"
+        placeholder="please typing in your Key Words ..."
+        type="text"
+      />
+
+      <!-- the tag below is just a decoration -->
+      <button>
+        <i class="fa fa-search extraClass"></i>
+      </button>
+    </div>
+
     <table>
       <thead>
         <tr>
@@ -10,12 +35,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="cuisine in cuisineState" :key="cuisine.id">
-          <td>{{ cuisine.name }}</td>
+        <tr v-for="cuisine in filteredCuisineState" :key="cuisine.id">
+          <td ref="CUISINE_NAME">
+            <text-highlight :queries="keyWords">{{
+              cuisine.name
+            }}</text-highlight>
+          </td>
           <td>
             <tr>
               <td v-for="(material, index) in cuisine.material" :key="index">
-                {{ material }}
+                <text-highlight :queries="keyWords">{{
+                  material
+                }}</text-highlight>
               </td>
             </tr>
           </td>
@@ -23,16 +54,19 @@
           <td>
             <tr>
               <td v-for="(sauce, index) in cuisine.sauce" :key="index">
-                {{ sauce }}
+                <text-highlight :queries="keyWords">{{ sauce }}</text-highlight>
               </td>
             </tr>
           </td>
 
-          <td><button @click="removeCuisine(cuisine)">X</button></td>
+          <td>
+            <button @click="removeCuisine(cuisine)">X</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+
   <!-- <div>
     <div>
       <el-table v-bind:data="existingCuisine" style="width: 70%">
@@ -42,7 +76,7 @@
         <el-table-column prop="sauce" label="Sauce"> </el-table-column>
       </el-table>
     </div>
-  </div> -->
+  </div>-->
 </template>
 
 <script>
@@ -51,6 +85,12 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'MenuHadAlready',
+  data() {
+    return {
+      cuisineName: '',
+      keyWords: '',
+    };
+  },
 
   // data() {
   //   return {
@@ -61,6 +101,13 @@ export default {
   computed: {
     ...mapState(['cuisineState']),
 
+    // conditional rendering
+    filteredCuisineState() {
+      return this.cuisineState.filter((item) => {
+        return item.name.includes(this.keyWords);
+      });
+    },
+
     // existingCuisine() {
     //   return this.jsonMenu.cuisineList.map((cuisine) => {
     //     return cuisine;
@@ -70,6 +117,21 @@ export default {
 
   methods: {
     ...mapActions(['removeCuisine', 'setCuisine']),
+
+    findCuisineName() {
+      const listName = this.cuisineState.map((item) => {
+        return item.name;
+      });
+      const index = listName.indexOf(this.cuisineName);
+
+      const tdElement = this.$refs.CUISINE_NAME[index];
+      const tdElementValue = tdElement.innerHTML;
+
+      if (tdElementValue == this.cuisineName) {
+        this.cuisineName = '';
+        return tdElement.scrollIntoView();
+      }
+    },
   },
 
   // created() {
@@ -80,6 +142,7 @@ export default {
 
 <style scoped>
 table {
+  width: 100%;
   border-collapse: collapse;
 }
 tr:hover {

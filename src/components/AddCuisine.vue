@@ -1,15 +1,20 @@
 <template>
-  <div>
+  <div class="inputFields">
     <input v-model="cuisineName" type="text" placeholder="add Name here..." />
+
     <input
       v-model="cuisineMaterial"
       type="text"
       placeholder="add Material here..."
     />
+
     <input v-model="cuisineSauce" type="text" placeholder="add Sauce here..." />
+
     <button class="btn" @click="addCuisines()">submit</button>
-    <div v-for="material in materialList" :key="material"></div>
-    <div v-for="(sauce, index) in sauceList" :key="index"></div>
+
+    <!-- below code is not necessary -->
+    <!-- <div v-for="material in materialList" :key="material">{{ material }}</div>
+    <div v-for="(sauce, index) in sauceList" :key="index">{{ sauce }}</div> -->
   </div>
 </template>
 
@@ -26,7 +31,7 @@ export default {
       cuisineSauce: '',
     };
   },
-  // 通过computed进入data,取得数据进行筛选，传入v-for,遍历数组，因为是数组；
+
   computed: {
     materialList() {
       return this.cuisineMaterial.split(',').map((name) => name.trim());
@@ -58,21 +63,7 @@ export default {
 </script>
 
 <style scoped>
-input[type='text'] {
-  width: 20%;
-  padding: 17px 22px;
-  margin: 10px 5px;
-  box-sizing: border-box;
-}
-.btn {
-  background-color: #1abc9c;
-  border: none;
-  color: white;
-  padding: 12px;
-  text-decoration: none;
-  margin: 5px 4px;
-  cursor: pointer;
-  font-size: 17px;
-  font-family: fantasy;
+.inputFields {
+  width: 60%;
 }
 </style>

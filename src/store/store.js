@@ -1,9 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+//使用了vuex-persistedstate 可以保存到本地；
 import createPersistedState from 'vuex-persistedstate';
-// json文件每次刷新都会被重新调用；所以使用了vuex-persistedstate之后就不会保存；
-// 要删除那些动作；
+// json文件每次刷新都会被重新调用所以无法报存；
+// 要删除有关json的动作并且把json文件内容通过created方法上传到store里的setCuisine就变成了store里的state了。
+import TextHighlight from 'vue-text-highlight';
 
+Vue.component('text-highlight', TextHighlight);
 Vue.use(Vuex);
 
 const state = {

@@ -9,12 +9,18 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
+    "ag-grid-community": "^23.0.2",
+    "ag-grid-enterprise": "^23.0.2",
+    "ag-grid-vue": "^23.0.2",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.1",
     "js-cookie": "^2.2.1",
     "uuid": "^7.0.3",
     "vue": "^2.6.11",
     "vue-el-element": "^1.12.6",
+    "vue-property-decorator": "^8.4.2",
+    "vue-scrollto": "^2.18.1",
+    "vue-text-highlight": "^2.0.10",
     "vuex": "^3.2.0",
     "vuex-persist": "^2.2.0",
     "vuex-persistedstate": "^3.0.1",
@@ -27,6 +33,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.14.0",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.2.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
